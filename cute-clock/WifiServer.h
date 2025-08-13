@@ -1,0 +1,110 @@
+#ifndef _WIFI_SERVER_H_
+#define _WIFI_SERVER_H_
+
+#include <ESP8266WebServer.h> //  ESP8266WebServer库
+#include "JsonWifiServer.h"
+#include "GlobalConfigure.h"
+#include "LightUtil.h"
+
+ESP8266WebServer _wifiServer(WIFI_SERVER_PORT); // 建立网络服务器对象，该对象用于响应HTTP请求。监听端口（80）
+
+void _sendSuccessResponse()
+{
+    String resp = JsonWifiServer::getSuccessResponse();
+    _wifiServer.send(200, "text/plain", resp);
+}
+
+void _sendFailResponse(String errMsg)
+{
+    String resp = JsonWifiServer::getFailResponse(errMsg);
+    _wifiServer.send(200, "text/plain", resp);
+}
+
+void _handleRoot()
+{
+    _wifiServer.send(200, "text/plain", "今晚的月色真美"); // NodeMCU将调用此函数。
+}
+
+void _handleNotFound()
+{
+    _wifiServer.send(404, "text/plain", "404: Not found");
+}
+
+void _getAllStatus()
+{
+    Serial.println("获取设备全部状态");
+    String tmp = JsonWifiServer::getAllStatusJson(LightUtil::getLightState() == "on", GLOBAL_CLOCK_BRIGHTNESS_NOW);
+    _wifiServer.send(200, "text/plain", tmp); // NodeMCU将调用此函数。
+    Serial.println("回送设备全部状态");
+}
+
+void _setRoomLightStatus()
+{
+    Serial.println("设置房间灯状态");
+    if (_wifiServer.hasArg("plain") == false)
+    {
+        Serial.println("设置灯状态接口内容为空");
+        _sendFailResponse("接口内容为空");
+        return;
+    }
+    String status = JsonWifiServer::resolveSetRoomLightOder(_wifiServer.arg("plain"));
+
+    if (status == "-1" || (status != "on" && status != "off"))
+    {
+
+        Serial.print("灯状态解析失败或设置值非法:");
+        Serial.println(status);
+        _sendFailResponse("灯状态解析失败或设置值非法");
+        return;
+    }
+
+    Serial.print("设置灯状态：");
+    Serial.println(status);
+    LightUtil::setLightState(status);
+
+    _sendSuccessResponse();
+    Serial.println("回送灯状态");
+}
+
+void _setClockStatus()
+{
+    Serial.println("设置时钟状态");
+    if (_wifiServer.hasArg("plain") == false)
+    {
+        Serial.println("设置时钟状态接口内容为空");
+        _sendFailResponse("接口内容为空");
+        return;
+    }
+    int level = JsonWifiServer::resolveSetClockBrightnessOder(_wifiServer.arg("plain"));
+    if (level < 0 || level > 15)
+    {
+        Serial.println("时钟状态解析失败或设置值非法");
+        _sendFailResponse("时钟状态解析失败或设置值非法");
+        return;
+    }
+
+    Serial.print("设置时钟亮度状态：");
+    Serial.println(level);
+    GLOBAL_CLOCK_BRIGHTNESS = level;
+    _sendSuccessResponse();
+    Serial.println("回送时钟状态");
+}
+
+void wifiServerInit()
+{
+    _wifiServer.begin();                                    // 启动网站服务
+    _wifiServer.on("/", _handleRoot);                       // 设置服务器根目录即'/'的函数'handleRoot'
+    _wifiServer.on("/all-status", HTTP_GET, _getAllStatus); //
+    _wifiServer.on("/room-light", HTTP_POST, _setRoomLightStatus);
+    _wifiServer.on("/clock", HTTP_POST, _setClockStatus);
+    _wifiServer.onNotFound(_handleNotFound); // 设置处理404情况的函数'handleNotFound'
+
+    Serial.println("HTTP esp8266_server started"); //  告知用户ESP8266网络服务功能已经启动
+}
+
+void wifiServerRun()
+{
+    _wifiServer.handleClient(); // 处理http服务器访问
+}
+
+#endif

@@ -1,0 +1,7 @@
+/.history
+/build
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+
+# 配置文件保护 - 包含敏感信息，不提交到版本控制
+cute-clock/UserConfig.h
