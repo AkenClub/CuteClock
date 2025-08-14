@@ -1,0 +1,13 @@
+/**app.wxss**/
+page {
+  --dialog-background-color: #222c45;
+  --goods-action-background-color: #222c45;
+  --goods-action-button-danger-color: #708cbb;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+  height: 100vh;
+  background-color: #151a2e;
+}

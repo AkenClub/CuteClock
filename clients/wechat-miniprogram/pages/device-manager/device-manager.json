@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "设备管理",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "light",
+  "backgroundColor": "#222c45",
+  "usingComponents": {}
+}

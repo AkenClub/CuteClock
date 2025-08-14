@@ -1,0 +1,54 @@
+/**index.wxss**/
+.index-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.index-empty {
+  flex: 1;
+  color: #708cbb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-empty_image {
+  /* height: 10px; */
+  width: 100px;
+}
+
+.index-header {
+  display: flex;
+  align-items: center;
+}
+
+.index-header_title {
+  margin-right: 10rpx;
+  color: #708cbb;
+  font-size: medium;
+  margin-left: 36rpx;
+}
+
+.server-item {
+  margin-top: 20rpx;
+  border-radius: 20rpx;
+  background-color: #222c45 !important;
+}
+
+.server-item_mark {
+  display: block;
+  font-size: large;
+  color: #8ec3fe;
+}
+
+.server-item_ip {
+  color: #708cbb;
+  font-size: smaller;
+}
+
+.index-list {
+  flex: 1;
+  margin-top: 20rpx;
+}

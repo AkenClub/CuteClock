@@ -1,0 +1,83 @@
+.device-manager-container {
+  color: #708cbb;
+  padding: 30rpx 0;
+}
+
+.van-dialog__message-text {
+  color: #8ec3fe;
+}
+
+.device-manager-container .van-button--default {
+  background: #222C45 !important;
+  color: #8ec3fe !important;
+}
+
+.slider {
+  margin: 40rpx 15rpx 0;
+}
+
+.slider-bright-level {
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 25rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  border-radius: 50%;
+  color: #708cbb;
+  background-color: #8ec3fe;
+}
+
+.device-title {
+  display: block;
+  margin: 30rpx 30rpx;
+}
+
+.normal-item-wrapper {
+  height: 230rpx !important;
+  padding: 20rpx !important;
+  border-radius: 20rpx;
+  background-color: #222c45 !important;
+}
+
+.light-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.light-item-wrapper_right {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.light-item-wrapper_left {
+  display: flex;
+  align-items: center;
+}
+
+.light-item_title {
+  font-size: small;
+  margin-bottom: 40rpx;
+}
+
+.item_image {
+  height: 110rpx;
+  width: 110rpx;
+}
+
+.clock-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clock-item-wrapper_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: small;
+}

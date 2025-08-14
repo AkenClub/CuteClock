@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="container index-container">
+  <van-toast id="van-toast" />
+  <view class="index-header">
+    <text class="index-header_title">设备列表</text>
+    <van-loading type="spinner" size="34rpx" color="#708cbb"></van-loading>
+  </view>
+  <scroll-view wx:if="{{ serverList.length > 0 }}" scroll-y="true" style="height: 680rpx;" class="index-list">
+    <van-cell-group border="{{false}}">
+      <block class="server-content" wx:for="{{ serverList }}" wx:key="address" wx:for-item="server">
+        <van-cell clickable data-item="{{ server }}" bind:click="onServerClick" custom-class="server-item" border="{{false}}">
+          <view slot="title">
+            <text class="server-item_mark">{{ server.mark }}</text>
+            <text class="server-item_ip">{{ server.remoteInfo.address }}</text>
+          </view>
+          <van-icon slot="right-icon" name="arrow" size="20px" color="#708cbb"></van-icon>
+        </van-cell>
+      </block>
+    </van-cell-group>
+  </scroll-view>
+  <view wx:else class="index-empty">
+    <image mode="widthFix" class="index-empty_image" src="../../img/index-empty.png" />
+    <text>暂无数据</text>
+  </view>
+</view>
