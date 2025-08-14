@@ -5,6 +5,7 @@
 #include "JsonWifiServer.h"
 #include "GlobalConfigure.h"
 #include "LightUtil.h"
+#include "UserConfig.h"
 
 ESP8266WebServer _wifiServer(WIFI_SERVER_PORT); // 建立网络服务器对象，该对象用于响应HTTP请求。监听端口（80）
 
@@ -18,6 +19,32 @@ void _sendFailResponse(String errMsg)
 {
     String resp = JsonWifiServer::getFailResponse(errMsg);
     _wifiServer.send(200, "text/plain", resp);
+}
+
+// 验证API密钥
+bool _checkApiKey()
+{
+    // 检查是否存在X-API-Key请求头
+    if (!_wifiServer.hasHeader("X-API-Key"))
+    {
+        Serial.println("缺少API密钥请求头");
+        _sendFailResponse("缺少API密钥");
+        return false;
+    }
+    
+    // 验证密钥是否正确
+    String receivedKey = _wifiServer.header("X-API-Key");
+    String expectedKey = String(UserHttpApiKey);
+    
+    if (receivedKey != expectedKey)
+    {
+        Serial.println("API密钥验证失败");
+        _sendFailResponse("API密钥无效");
+        return false;
+    }
+    
+    Serial.println("API密钥验证成功");
+    return true;
 }
 
 void _handleRoot()
@@ -41,6 +68,13 @@ void _getAllStatus()
 void _setRoomLightStatus()
 {
     Serial.println("设置房间灯状态");
+    
+    // 首先验证API密钥
+    if (!_checkApiKey())
+    {
+        return; // 验证失败，已在_checkApiKey中发送错误响应
+    }
+    
     if (_wifiServer.hasArg("plain") == false)
     {
         Serial.println("设置灯状态接口内容为空");
@@ -69,6 +103,13 @@ void _setRoomLightStatus()
 void _setClockStatus()
 {
     Serial.println("设置时钟状态");
+    
+    // 首先验证API密钥
+    if (!_checkApiKey())
+    {
+        return; // 验证失败，已在_checkApiKey中发送错误响应
+    }
+    
     if (_wifiServer.hasArg("plain") == false)
     {
         Serial.println("设置时钟状态接口内容为空");
