@@ -4,7 +4,7 @@
 
 ## 第一步：创建配置文件
 
-1. 进入 `cute-clock` 目录
+1. 进入 `firmware` 目录
 2. 复制 `UserConfig.example.h` 为 `UserConfig.h`
    ```bash
    cp UserConfig.example.h UserConfig.h

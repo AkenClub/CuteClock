@@ -39,6 +39,8 @@
 - **点灯科技 App**：官方 App 远程控制
 - **小爱同学**：语音控制灯光和电脑
 - **HTTP API**：RESTful 接口控制
+- **微信小程序**：便捷的移动端控制（即将开源）
+- **网页端**：桌面浏览器控制面板（开发中）
 - **物理按键**：硬件按键直接控制（可扩展）
 
 ## 🎯 应用场景
@@ -82,7 +84,7 @@
 git clone https://github.com/your-username/CuteClock.git
 
 # 2. 复制配置文件
-cd CuteClock/cute-clock
+cd CuteClock/firmware
 cp UserConfig.example.h UserConfig.h
 
 # 3. 编辑配置文件
@@ -95,13 +97,13 @@ cp UserConfig.example.h UserConfig.h
 
 ```
 CuteClock/
-├── cute-clock/                 # Arduino 主程序
+├── firmware/                   # ESP8266 固件代码
 │   ├── cute-clock.ino         # 主程序文件
 │   ├── UserConfig.example.h   # 配置文件模板
-│   ├── GlobalConfigure.h      # 全局配置头文件
-│   ├── DianDengHelper.h       # 点灯科技接口
-│   ├── Displayer.h            # LED 显示控制
 │   └── ...                    # 其他功能模块
+├── clients/                    # 客户端应用
+│   ├── wechat-miniprogram/    # 微信小程序（即将开源）
+│   └── web/                   # 网页端控制面板（开发中）
 ├── docs/                       # 文档目录
 │   ├── images/                # 图片资源
 │   ├── hardware-setup.md      # 硬件准备指南
@@ -121,6 +123,27 @@ CuteClock/
 - **多平台支持**：支持任何能发起 HTTP 请求的平台
 
 **📖 详细的 API 使用说明和安全配置请参考：[HTTP API 使用指南](docs/api-usage.md)**
+
+## 📱 客户端应用
+
+### 微信小程序
+
+- **状态**: 即将开源到 `clients/wechat-miniprogram/`
+- **功能**: 移动端便捷控制，支持灯光、时钟亮度、电脑电源控制
+- **特点**: 基于微信平台，无需安装额外应用
+
+### 网页端控制面板
+
+- **状态**: 开发中，将开源到 `clients/web/`
+- **功能**: 桌面浏览器控制面板，完整的设备管理界面
+- **特点**: 响应式设计，支持电脑和平板访问
+
+### 第三方开发
+
+如果您想开发自己的客户端应用：
+
+- 📚 参考 [HTTP API 使用指南](docs/api-usage.md)
+- 🤝 欢迎贡献您的客户端实现到 `clients/` 目录
 
 ## 🛠️ 技术栈
 
