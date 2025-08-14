@@ -12,18 +12,17 @@ CuteClock 微信小程序版本，提供便捷的移动端设备控制。
 
 ## ⚙️ 配置说明（重要）
 
-小程序已将端口、API 密钥等配置项集中到 `other/config.js`：
+小程序已将端口配置项集中到 `other/config.js`，可以全部保持默认：
 
 ```js
 export const CONFIG = {
   defaultPort: 1229, // 固件 HTTP 端口（与固件一致）
   udpBroadcastPort: 1998, // UDP 广播接收端口（与固件一致）
-  defaultDeviceAddress: "", // 可选：固定设备 IP（留空表示使用自动发现）
-  apiKey: "cute_clock_2025", // 可选：HTTP API 密钥（与固件一致）
+  defaultDeviceAddress: "" // 可选：固定设备 IP（留空表示使用自动发现）
 };
 ```
 
-修改以上配置后重新编译预览即可生效。
+保存以上配置后重新编译预览即可生效。
 
 ## 🧹 隐私与安全
 
@@ -45,7 +44,7 @@ export const CONFIG = {
 4. 在微信开发者工具中：工具 → 构建 npm
 5. 构建完成后重新编译即可见到效果
 6. 如需固定设备：在 `other/config.js` 中设置 `defaultDeviceAddress`
-7. 如需鉴权：在 `other/config.js` 中设置 `apiKey`
+7. 如需鉴权：在 设备管理页面 中设置 `API Key`，保存后会自动保存到本地
 
 **自用提示：** 如果只是自用，可以预览使用手机扫码后，用开发版本即可
 

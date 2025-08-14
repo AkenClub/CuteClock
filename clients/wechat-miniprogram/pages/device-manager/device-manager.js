@@ -8,7 +8,7 @@ import {
   triggerPcPower,
 } from "../../http/wifi-server-api";
 import Dialog from "../../miniprogram_npm/@vant/weapp/dialog/dialog";
-import { setBaseURL } from "../../http/base-request";
+import { setBaseURL, setApiKey } from "../../http/base-request";
 import { CONFIG } from "../../other/config";
 
 const app = getApp();
@@ -31,6 +31,22 @@ Page({
     },
     isPcTriggering: false,
     lastPcTriggerAt: 0,
+    apiKeyInput: "",
+    currentDeviceId: "",
+  },
+
+  onLoad(options) {
+    const id = options.id;
+    console.log("device manager 加载", id);
+    const deviceId = id || "__default__";
+    this.setData({ currentDeviceId: deviceId });
+    try {
+      const savedKey = wx.getStorageSync(deviceId) || "";
+      this.setData({ apiKeyInput: savedKey });
+      setApiKey(savedKey);
+    } catch (e) {
+      console.warn("读取API Key失败", e);
+    }
   },
 
   /**
@@ -53,6 +69,23 @@ Page({
     setBaseURL(`http://${baseAddress}:${basePort}`);
 
     this.refreshAllStatus();
+  },
+
+  onApiKeyInput(e) {
+    this.setData({ apiKeyInput: (e.detail && e.detail.value) || "" });
+  },
+
+  onSaveApiKey() {
+    const key = this.data.apiKeyInput || "";
+    const deviceId = this.data.currentDeviceId || "__default__";
+    try {
+      wx.setStorageSync(deviceId, key);
+      setApiKey(key);
+      this.showSuccessLoading();
+    } catch (e) {
+      console.error("保存API Key失败", e);
+      this.showFailLoading("保存失败");
+    }
   },
 
   refreshAllStatus() {

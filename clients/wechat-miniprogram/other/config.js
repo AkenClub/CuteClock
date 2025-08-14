@@ -11,7 +11,7 @@ const CONFIG = {
   // 可选：默认设备地址（如需固定IP，可在此指定）
   defaultDeviceAddress: "",
 
-  // HTTP API 密钥（与固件 UserHttpApiKey 一致）。如为空，则不携带
-  apiKey: "cute_clock_2025",
+  // HTTP API 密钥默认留空，运行时从本地存储读取
+  apiKey: "",
 };
 module.exports = { CONFIG };

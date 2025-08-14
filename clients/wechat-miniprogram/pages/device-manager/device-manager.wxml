@@ -6,6 +6,14 @@
     <view class="refresh-tip">
         <text class="refresh-tip-text">下拉页面可刷新设备状态</text>
     </view>
+    <view class="api-key-wrapper">
+        <text class="api-key-title">API Key</text>
+        <view class="api-key-input-wrapper">
+            <input placeholder="请输入该设备的 API Key（可为空）" bindinput="onApiKeyInput" value="{{apiKeyInput}}" />
+            <van-button round color="#8ec3fe" size="small" type="primary" bindtap="onSaveApiKey">保存</van-button>
+        </view>
+    </view>
+
     <view>
         <text class="device-title">灯</text>
         <van-grid gutter="8" column-num="2" center="{{ false }}" border="{{ false }}">

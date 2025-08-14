@@ -20,7 +20,7 @@ Page({
     const server = e.currentTarget.dataset.item;
     app.globalData.remoteTcpServerInfo = server.remoteInfo;
     wx.navigateTo({
-      url: "../device-manager/device-manager",
+      url: "../device-manager/device-manager?id=" + server.id,
     });
   },
 
@@ -69,6 +69,7 @@ Page({
         address: remoteInfo.address,
         port: device.data.port,
       },
+      id: device.data.id,
       mac: device.data.mac,
       mark: device.data.mark,
     };

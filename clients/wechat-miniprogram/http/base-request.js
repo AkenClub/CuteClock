@@ -1,6 +1,5 @@
-const { CONFIG } = require("../other/config");
-
 let baseUrl = "";
+let runtimeApiKey = ""; // 运行时可设置的API密钥（优先级高于配置）
 // 专用域名，/ 结尾
 const subDomain = "";
 
@@ -9,6 +8,12 @@ module.exports = {
   setBaseURL: (url) => {
     baseUrl = url;
     console.log(`设置 URL：${baseUrl}`);
+  },
+
+  // 运行时设置 API Key（可为空）
+  setApiKey: (key) => {
+    runtimeApiKey = typeof key === "string" ? key : "";
+    console.log(`设置 API Key（长度）: ${runtimeApiKey.length}`);
   },
 
   // 二次封装wx.request
@@ -21,7 +26,8 @@ module.exports = {
   request: (url, data = {}, method = "POST", isSubDomain = false) => {
     return new Promise((resolve, reject) => {
       // 拼接
-      const apiKeyHeader = CONFIG.apiKey ? { "X-API-Key": CONFIG.apiKey } : {};
+      const effectiveKey = runtimeApiKey; // 不再从配置读取，完全由运行时控制
+      const apiKeyHeader = effectiveKey ? { "X-API-Key": effectiveKey } : {};
       let _url = `${baseUrl}/${isSubDomain ? subDomain : ""}${url}`;
       wx.request({
         url: _url,

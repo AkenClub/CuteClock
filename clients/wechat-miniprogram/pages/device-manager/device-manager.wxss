@@ -1,6 +1,7 @@
 .device-manager-container {
   color: #708cbb;
-  padding: 30rpx 0;
+  padding: 30rpx 0 80rpx;
+  height: auto;
 }
 
 /* 下拉刷新提示样式 */
@@ -138,3 +139,23 @@
   font-size: 24rpx;
   color: #708cbb;
 }
+
+.api-key-wrapper {
+  padding: 0 30rpx;
+}
+
+.api-key-input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.api-key-input-wrapper input {
+  width: 100%;
+  background-color: #222c45;
+  color: #8ec3fe;
+  border-radius: 10rpx;
+  padding: 10rpx;
+  margin-right: 20rpx;
+}
+
