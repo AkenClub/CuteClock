@@ -99,18 +99,18 @@ cp UserConfig.example.h UserConfig.h
 ```
 CuteClock/
 ├── firmware/                   # ESP8266 固件代码
-│   ├── cute-clock.ino         # 主程序文件
-│   ├── UserConfig.example.h   # 配置文件模板
-│   ├── WebControl.h           # 内置 Web 控制页面源码
-│   └── ...                    # 其他功能模块
+│   ├── firmware.ino            # 主程序文件
+│   ├── UserConfig.example.h    # 配置文件模板
+│   ├── WebControl.h            # 内置 Web 控制页面源码
+│   └── ...                     # 其他功能模块
 ├── clients/                    # 客户端应用
-│   └── wechat-miniprogram/    # 微信小程序
+│   └── wechat-miniprogram/     # 微信小程序
 ├── docs/                       # 文档目录
-│   ├── images/                # 图片资源
-│   ├── hardware-setup.md      # 硬件准备指南
-│   ├── configuration.md       # 配置文件说明
-│   ├── development-setup.md   # 开发环境搭建
-│   └── software-setup.md      # 软件配置指南
+│   ├── images/                 # 图片资源
+│   ├── hardware-setup.md       # 硬件准备指南
+│   ├── configuration.md        # 配置文件说明
+│   ├── development-setup.md    # 开发环境搭建
+│   └── software-setup.md       # 软件配置指南
 └── README.md                   # 项目说明
 ```
 
