@@ -41,7 +41,7 @@ export const CONFIG = {
 
 1. 使用微信开发者工具导入本目录
 2. 在开发者工具中填写 `appid`
-3. 在终端中执行：`npm install`
+3. 在 CuteClock\clients\wechat-miniprogram 目录下，终端中执行：`npm install`
 4. 在微信开发者工具中：工具 → 构建 npm
 5. 构建完成后重新编译即可见到效果
 6. 如需固定设备：在 `other/config.js` 中设置 `defaultDeviceAddress`

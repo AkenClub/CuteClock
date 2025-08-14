@@ -4,7 +4,7 @@ export function getLightEnableParams(id, isEnable) {
       id: id,
       order: {
         type: 'enable',
-        value: isEnable,
+        value: isEnable ? 'on' : 'off',
       },
     }
   } else {

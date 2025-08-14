@@ -64,8 +64,8 @@
 #define UserUdpLocalPort 2506                      // 本地UDP监听端口
 #define UserUdpBroadcastPort 1998                  // 远程广播端口
 
-// HTTP API 安全配置
-#define UserHttpApiKey "cute_clock_2024"           // HTTP API访问密钥，与配套小程序/Web项目对应
+// HTTP API 安全配置，如果密钥为空字符串，则不校验
+#define UserHttpApiKey "cute_clock_2025"           // HTTP API访问密钥，与配套小程序/Web项目对应
 ```
 
 **说明：**

@@ -18,31 +18,40 @@ void _sendSuccessResponse()
     _wifiServer.send(200, "application/json; charset=utf-8", resp);
 }
 
-void _sendFailResponse(String errMsg)
+void _sendFailResponse(String errMsg, int statusCode = 400)
 {
     String resp = JsonWifiServer::getFailResponse(errMsg);
-    _wifiServer.send(200, "application/json; charset=utf-8", resp);
+    _wifiServer.send(statusCode, "application/json; charset=utf-8", resp);
 }
 
 // 验证API密钥
 bool _checkApiKey()
 {
-    // 检查是否存在X-API-Key请求头
-    if (!_wifiServer.hasHeader("X-API-Key"))
+    // 如果用户配置的密钥为空字符串，直接放行（允许无密钥）
+    String expectedKey = String(UserHttpApiKey);
+    expectedKey.trim();
+    if (expectedKey.length() == 0)
+    {
+        return true;
+    }
+
+    // 检查是否存在X-API-Key请求头（兼容大小写）
+    bool hasUpper = _wifiServer.hasHeader("X-API-Key");
+    bool hasLower = _wifiServer.hasHeader("x-api-key");
+    if (!hasUpper && !hasLower)
     {
         Serial.println("缺少API密钥请求头");
-        _sendFailResponse("缺少API密钥");
+        _sendFailResponse("缺少API密钥", 401);
         return false;
     }
-    
+
     // 验证密钥是否正确
-    String receivedKey = _wifiServer.header("X-API-Key");
-    String expectedKey = String(UserHttpApiKey);
-    
+    String receivedKey = hasUpper ? _wifiServer.header("X-API-Key") : _wifiServer.header("x-api-key");
+    receivedKey.trim();
     if (receivedKey != expectedKey)
     {
         Serial.println("API密钥验证失败");
-        _sendFailResponse("API密钥无效");
+        _sendFailResponse("API密钥无效", 401);
         return false;
     }
     
@@ -81,7 +90,7 @@ void _setRoomLightStatus()
     if (_wifiServer.hasArg("plain") == false)
     {
         Serial.println("设置灯状态接口内容为空");
-        _sendFailResponse("接口内容为空");
+        _sendFailResponse("接口内容为空", 400);
         return;
     }
     String status = JsonWifiServer::resolveSetRoomLightOder(_wifiServer.arg("plain"));
@@ -91,7 +100,7 @@ void _setRoomLightStatus()
 
         Serial.print("灯状态解析失败或设置值非法:");
         Serial.println(status);
-        _sendFailResponse("灯状态解析失败或设置值非法");
+        _sendFailResponse("灯状态解析失败或设置值非法", 400);
         return;
     }
 
@@ -116,14 +125,14 @@ void _setClockStatus()
     if (_wifiServer.hasArg("plain") == false)
     {
         Serial.println("设置时钟状态接口内容为空");
-        _sendFailResponse("接口内容为空");
+        _sendFailResponse("接口内容为空", 400);
         return;
     }
     int level = JsonWifiServer::resolveSetClockBrightnessOder(_wifiServer.arg("plain"));
     if (level < 0 || level > 15)
     {
         Serial.println("时钟状态解析失败或设置值非法");
-        _sendFailResponse("时钟状态解析失败或设置值非法");
+        _sendFailResponse("时钟状态解析失败或设置值非法", 400);
         return;
     }
 
@@ -155,6 +164,11 @@ void wifiServerInit()
 {
     _pcController.init();                                   // 初始化电脑控制器
     _wifiServer.begin();                                    // 启动网站服务
+
+    // 收集自定义请求头，确保后续可通过 hasHeader/header 读取
+    const char *apiHeaderKeys[] = {"X-API-Key", "x-api-key"};
+    const size_t apiHeaderKeysCount = sizeof(apiHeaderKeys) / sizeof(apiHeaderKeys[0]);
+    _wifiServer.collectHeaders(apiHeaderKeys, apiHeaderKeysCount);
     _wifiServer.on("/", _handleRoot);                       // 设置服务器根目录即'/'的函数'handleRoot'
     _wifiServer.on("/all-status", HTTP_GET, _getAllStatus); //
     _wifiServer.on("/room-light", HTTP_POST, _setRoomLightStatus);

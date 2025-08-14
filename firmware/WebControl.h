@@ -2,7 +2,7 @@
 #define _WEB_CONTROL_H_
 
 // 极简控制页面 HTML
-const char WEB_CONTROL_HTML[] PROGMEM = R"(
+const char WEB_CONTROL_HTML[] PROGMEM = R"WEB(
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,7 @@ h1{text-align:center;color:#667eea;margin-bottom:20px}
 <input type="password" id="api-key" placeholder="请输入API密钥" onkeyup="saveApiKey()">
 <button class="btn" onclick="clearApiKey()">清除</button>
 </div>
-<div class="status">控制设备需要API密钥，输入后自动保存</div>
+<div class="status">控制设备需要API密钥，输入后自动保存到浏览器本地</div>
 </div>
 
 <div class="card">
@@ -67,7 +67,7 @@ h1{text-align:center;color:#667eea;margin-bottom:20px}
 
 <div class="card">
 <div>🌡️ 室内温度</div>
-<div class="temp" id="temperature">--°C</div>
+<div class="temp" id="temperature">--&deg;C</div>
 </div>
 
 </div>
@@ -79,11 +79,15 @@ let devices={};
 
 async function req(url,data){
 const opt={method:data?'POST':'GET',headers:{'Content-Type':'application/json'}};
-if(data&&API_KEY){opt.body=JSON.stringify(data);opt.headers['X-API-Key']=API_KEY;}
-else if(data){opt.body=JSON.stringify(data);}
+if(data){opt.body=JSON.stringify(data);opt.headers['X-API-Key']=API_KEY;}
 const res=await fetch(BASE_URL+url,opt);
 if(!res.ok){
-throw new Error(`HTTP ${res.status}`);
+let err = await res.json().catch(()=>null);
+if (err && err.errCode !== undefined && err.errMsg) {
+  throw new Error(`HTTP ${res.status} (errCode: ${err.errCode}) ${err.errMsg}`);
+} else {
+  throw new Error(`HTTP ${res.status}`);
+}
 }
 return res.json();
 }
@@ -138,11 +142,7 @@ document.getElementById('temperature').textContent=devices.temperature.data.valu
 }
 
 async function toggleLight(){
-if(!devices.light)return;
-if(!API_KEY){
-alert('请先在设置中输入API密钥');
-return;
-}
+if(!devices.light)return; 
 const enable=!devices.light.data.enable;
 try{
 await req('/room-light',{id:devices.light.id,order:{type:'enable',value:enable?'on':'off'}});
@@ -153,23 +153,14 @@ setTimeout(loadStatus,200);
 async function setBrightness(val){
 document.getElementById('brightness-value').textContent=val;
 if(!devices.clock)return;
-if(!API_KEY){
-alert('请先在设置中输入API密钥');
-return;
-}
 try{
 await req('/clock',{id:devices.clock.id,order:{type:'brightness',value:parseInt(val)}});
 }catch(e){alert('设置失败: '+e.message);}
 }
 
 async function triggerPC(){
-if(!API_KEY){
-alert('请先在设置中输入API密钥');
-return;
-}
 try{
-await req('/pc-power');
-alert('已触发电脑电源开关');
+await req('/pc-power',{});
 }catch(e){alert('操作失败: '+e.message);}
 }
 
@@ -183,6 +174,6 @@ setInterval(loadStatus,5000);
 </script>
 </body>
 </html>
-)";
+ )WEB";
 
 #endif // _WEB_CONTROL_H_

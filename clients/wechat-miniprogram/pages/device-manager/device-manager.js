@@ -146,6 +146,7 @@ Page({
       cancelButtonText: "取消",
     })
       .then(() => {
+        this.setData({ lastPcTriggerAt: Date.now() });
         this.setData({ isPcTriggering: true });
         this.showLoading();
         return triggerPcPower();
@@ -160,7 +161,7 @@ Page({
         }
       })
       .finally(() => {
-        this.setData({ isPcTriggering: false, lastPcTriggerAt: Date.now() });
+        this.setData({ isPcTriggering: false });
       });
   },
 
