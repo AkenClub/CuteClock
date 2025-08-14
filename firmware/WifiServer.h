@@ -7,6 +7,7 @@
 #include "LightUtil.h"
 #include "PCController.h"
 #include "UserConfig.h"
+#include "WebControl.h"
 
 ESP8266WebServer _wifiServer(WIFI_SERVER_PORT); // 建立网络服务器对象，该对象用于响应HTTP请求。监听端口（80）
 PCController _pcController; // 电脑控制器实例
@@ -51,7 +52,7 @@ bool _checkApiKey()
 
 void _handleRoot()
 {
-    _wifiServer.send(200, "text/plain; charset=utf-8", "今晚的月色真美"); // NodeMCU将调用此函数。
+    _wifiServer.send_P(200, "text/html; charset=utf-8", WEB_CONTROL_HTML);
 }
 
 void _handleNotFound()
