@@ -1,6 +1,11 @@
 <view class="container device-manager-container">
     <van-toast id="van-toast" />
     <van-dialog id="van-dialog" />
+    
+    <!-- 下拉刷新提示 -->
+    <view class="refresh-tip">
+        <text class="refresh-tip-text">下拉页面可刷新设备状态</text>
+    </view>
     <view>
         <text class="device-title">灯</text>
         <van-grid gutter="8" column-num="2" center="{{ false }}" border="{{ false }}">
@@ -21,14 +26,14 @@
     <view style="margin-top: 24rpx;">
         <text class="device-title">电脑</text>
         <van-grid gutter="8" column-num="2" center="{{ false }}" border="{{ false }}">
-            <van-grid-item use-slot content-class="normal-item-wrapper">
+            <van-grid-item use-slot wx:for="{{ devicesList.pc }}" wx:for-item="pcItem" wx:key="id" content-class="normal-item-wrapper">
                 <view class="light-item-wrapper">
                         <view class="light-item-wrapper_left">
                             <image class="item_image" src="../../img/ic_pc.png" mode="widthFix" />
                         </view>
                         <view class="light-item-wrapper_right">
-                            <text class="light-item_title">电脑电源</text>
-                            <van-button round color="#8ec3fe" size="small" type="primary" bindtap="onTriggerPcPower">
+                            <text class="light-item_title">{{ pcItem.mark }}</text>
+                            <van-button round color="#8ec3fe" size="small" type="primary" bindtap="onTriggerPcPower" data-pcItem="{{ pcItem }}">
                             触发
                             </van-button>
                         </view>
@@ -50,6 +55,26 @@
                         <van-slider active-color="#8ec3fe" custom-class="slider" use-button-slot min="0" max="15" step="1" value="{{ clock.brightnessTmp }}" bind:drag="onSliderDrag" bind:change="onSliderChange" data-clockItem="{{ clock }}">
                             <view class="slider-bright-level" slot="button">{{ clock.brightnessTmp }}</view>
                         </van-slider>
+                    </view>
+                </view>
+            </van-grid-item>
+        </van-grid>
+    </view>
+
+    <view style="margin-top: 24rpx;">
+        <text class="device-title">温度传感器</text>
+        <van-grid gutter="8" column-num="2" center="{{ false }}" border="{{ false }}">
+            <van-grid-item use-slot wx:for="{{ devicesList.temperature }}" wx:for-item="tempItem" wx:key="id" content-class="normal-item-wrapper">
+                <view class="temperature-item-wrapper">
+                    <view class="temperature-item-wrapper_left">
+                        <image class="item_image" src="../../img/ic_temperature.png" mode="widthFix" />
+                    </view>
+                    <view class="temperature-item-wrapper_right">
+                        <text class="temperature-item_title">{{ tempItem.mark }}</text>
+                        <view class="temperature-display">
+                            <text class="temperature-value">{{ tempItem.value }}</text>
+                            <text class="temperature-unit">{{ tempItem.unit }}</text>
+                        </view>
                     </view>
                 </view>
             </van-grid-item>

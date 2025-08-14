@@ -6,7 +6,7 @@
 class JsonWifiServer
 {
 public:
-    static String getAllStatusJson(boolean enable, int bright);
+    static String getAllStatusJson(boolean enable, int bright, float temperature);
     static String resolveSetRoomLightOder(String input);
     static int resolveSetClockBrightnessOder(String input);
 

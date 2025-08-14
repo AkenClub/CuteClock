@@ -1,10 +1,10 @@
 #include "JsonWifiServer.h"
 #include "UserConfig.h"
 
-String JsonWifiServer::getAllStatusJson(boolean enable, int bright)
+String JsonWifiServer::getAllStatusJson(boolean enable, int bright, float temperature)
 {
 
-  StaticJsonDocument<512> doc;
+  StaticJsonDocument<768> doc;
 
   doc["errCode"] = 0;
   doc["errMsg"] = "获取成功";
@@ -30,6 +30,24 @@ String JsonWifiServer::getAllStatusJson(boolean enable, int bright)
   data_items_1_data["enable"] = true;
   data_items_1_data["brightness"] = bright;
   data_items_1_data["mode"] = 1;
+
+  JsonObject data_items_2 = data_items.createNestedObject();
+  data_items_2["type"] = "pc";
+  data_items_2["id"] = "pc-desktop-01";
+  data_items_2["mark"] = UserPcDeviceName;
+
+  JsonObject data_items_2_data = data_items_2.createNestedObject("data");
+  data_items_2_data["enable"] = true;
+  data_items_2_data["description"] = "电源开关控制";
+
+  JsonObject data_items_3 = data_items.createNestedObject();
+  data_items_3["type"] = "temperature";
+  data_items_3["id"] = "temperature-sensor-01";
+  data_items_3["mark"] = "室内温度";
+
+  JsonObject data_items_3_data = data_items_3.createNestedObject("data");
+  data_items_3_data["value"] = temperature;
+  data_items_3_data["unit"] = "°C";
 
   String output;
   serializeJson(doc, output);

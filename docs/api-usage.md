@@ -86,12 +86,21 @@ curl http://192.168.1.100:1229/
 
 ### 2. 获取设备状态
 
-**获取设备完整状态信息**
+**获取设备完整状态信息，包括房间灯光、时钟显示、温度传感器等设备状态**
 
 - **URL**: `/all-status`
 - **方法**: `GET`
 - **认证**: 无需密钥
 - **参数**: 无
+
+**设备类型说明:**
+
+| 类型          | 描述           | 数据字段                                                                                   |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------ |
+| `light`       | 房间灯光状态   | `enable`: 是否开启 (boolean)                                                               |
+| `clock`       | 时钟显示状态   | `enable`: 是否启用 (boolean)<br>`brightness`: 亮度等级 (0-15)<br>`mode`: 显示模式 (number) |
+| `pc`          | 电脑设备状态   | `enable`: 是否可用 (boolean)<br>`description`: 功能描述 (string)                           |
+| `temperature` | 温度传感器数据 | `value`: 温度值 (number)<br>`unit`: 温度单位 (string, "°C")                                |
 
 **示例请求:**
 
@@ -125,6 +134,24 @@ curl http://192.168.1.100:1229/all-status
           "enable": true,
           "brightness": 5,
           "mode": 1
+        }
+      },
+      {
+        "type": "pc",
+        "id": "pc-desktop-01",
+        "mark": "台式电脑",
+        "data": {
+          "enable": true,
+          "description": "电源开关控制"
+        }
+      },
+      {
+        "type": "temperature",
+        "id": "temperature-sensor-01",
+        "mark": "室内温度",
+        "data": {
+          "value": 24.5,
+          "unit": "°C"
         }
       }
     ]

@@ -26,6 +26,8 @@ Page({
     devicesList: {
       light: [],
       clock: [],
+      temperature: [],
+      pc: [],
     },
     isPcTriggering: false,
     lastPcTriggerAt: 0,
@@ -55,29 +57,6 @@ Page({
 
   refreshAllStatus() {
     this.showLoading();
-
-    this.handleResponseAllStatus([
-      {
-        "type": "light",
-        "id": "light-bedroom-01",
-        "mark": "桌面灯",
-        "data": {
-          "enable": true
-        }
-      },
-      {
-        "type": "clock",
-        "id": "clock-living_room-01",
-        "mark": "时钟",
-        "data": {
-          "enable": true,
-          "brightness": 5,
-          "mode": 1
-        }
-      }
-    ]);
-    this.hideLoading();
-    return
 
     getAllStatus()
       .then((res) => {
@@ -164,7 +143,7 @@ Page({
       title: "确认操作",
       message: "将触发电脑电源开关（可能开机/关机），是否继续？",
       confirmButtonText: "确定",
-      cancelButtonText: "取消"
+      cancelButtonText: "取消",
     })
       .then(() => {
         this.setData({ isPcTriggering: true });
@@ -175,7 +154,7 @@ Page({
         this.showSuccessLoading();
       })
       .catch((e) => {
-        console.log(e)
+        console.log(e);
         if (e.closeAction !== "cancel") {
           this.showFailLoading(`${e}`);
         }
@@ -214,6 +193,8 @@ Page({
     console.log(statusList);
     this.data.devicesList.light.length = 0;
     this.data.devicesList.clock.length = 0;
+    this.data.devicesList.temperature.length = 0;
+    this.data.devicesList.pc.length = 0;
     statusList.forEach((item) => {
       switch (item.type) {
         case "light":
@@ -229,6 +210,22 @@ Page({
             mark: item.mark,
             brightness: item.data.brightness,
             brightnessTmp: item.data.brightness,
+          });
+          break;
+        case "temperature":
+          this.data.devicesList.temperature.push({
+            id: item.id,
+            mark: item.mark,
+            value: item.data.value,
+            unit: item.data.unit,
+          });
+          break;
+        case "pc":
+          this.data.devicesList.pc.push({
+            id: item.id,
+            mark: item.mark,
+            enable: item.data.enable,
+            description: item.data.description,
           });
           break;
         default:

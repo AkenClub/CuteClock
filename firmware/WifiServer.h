@@ -62,7 +62,7 @@ void _handleNotFound()
 void _getAllStatus()
 {
     Serial.println("获取设备全部状态");
-    String tmp = JsonWifiServer::getAllStatusJson(LightUtil::getLightState() == "on", GLOBAL_CLOCK_BRIGHTNESS_NOW);
+    String tmp = JsonWifiServer::getAllStatusJson(LightUtil::getLightState() == "on", GLOBAL_CLOCK_BRIGHTNESS_NOW, GLOBAL_ROOM_TEMPERATURE);
     _wifiServer.send(200, "application/json; charset=utf-8", tmp); // NodeMCU将调用此函数。
     Serial.println("回送设备全部状态");
 }

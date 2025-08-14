@@ -3,12 +3,24 @@
   padding: 30rpx 0;
 }
 
+/* 下拉刷新提示样式 */
+.refresh-tip {
+  text-align: center;
+  margin-bottom: 10rpx;
+}
+
+.refresh-tip-text {
+  font-size: 24rpx;
+  color: #708cbb;
+  opacity: 0.7;
+}
+
 .van-dialog__message-text {
   color: #8ec3fe;
 }
 
 .device-manager-container .van-button--default {
-  background: #222C45 !important;
+  background: #222c45 !important;
   color: #8ec3fe !important;
 }
 
@@ -80,4 +92,49 @@
   justify-content: space-between;
   align-items: center;
   font-size: small;
+}
+
+/* 温度显示相关样式 */
+.temperature-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.temperature-item-wrapper_left {
+  display: flex;
+  align-items: center;
+}
+
+.temperature-item-wrapper_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 1;
+}
+
+.temperature-item_title {
+  font-size: small;
+  margin-bottom: 20rpx;
+  color: #708cbb;
+}
+
+.temperature-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.temperature-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #8ec3fe;
+  margin-right: 8rpx;
+}
+
+.temperature-unit {
+  font-size: 24rpx;
+  color: #708cbb;
 }
