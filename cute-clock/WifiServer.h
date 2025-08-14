@@ -12,13 +12,13 @@ ESP8266WebServer _wifiServer(WIFI_SERVER_PORT); // 建立网络服务器对象�
 void _sendSuccessResponse()
 {
     String resp = JsonWifiServer::getSuccessResponse();
-    _wifiServer.send(200, "text/plain", resp);
+    _wifiServer.send(200, "application/json; charset=utf-8", resp);
 }
 
 void _sendFailResponse(String errMsg)
 {
     String resp = JsonWifiServer::getFailResponse(errMsg);
-    _wifiServer.send(200, "text/plain", resp);
+    _wifiServer.send(200, "application/json; charset=utf-8", resp);
 }
 
 // 验证API密钥
@@ -49,19 +49,19 @@ bool _checkApiKey()
 
 void _handleRoot()
 {
-    _wifiServer.send(200, "text/plain", "今晚的月色真美"); // NodeMCU将调用此函数。
+    _wifiServer.send(200, "text/plain; charset=utf-8", "今晚的月色真美"); // NodeMCU将调用此函数。
 }
 
 void _handleNotFound()
 {
-    _wifiServer.send(404, "text/plain", "404: Not found");
+    _wifiServer.send(404, "text/plain; charset=utf-8", "404: Not found");
 }
 
 void _getAllStatus()
 {
     Serial.println("获取设备全部状态");
     String tmp = JsonWifiServer::getAllStatusJson(LightUtil::getLightState() == "on", GLOBAL_CLOCK_BRIGHTNESS_NOW);
-    _wifiServer.send(200, "text/plain", tmp); // NodeMCU将调用此函数。
+    _wifiServer.send(200, "application/json; charset=utf-8", tmp); // NodeMCU将调用此函数。
     Serial.println("回送设备全部状态");
 }
 
