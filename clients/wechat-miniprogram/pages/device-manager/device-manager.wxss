@@ -2,6 +2,7 @@
   color: #708cbb;
   padding: 30rpx 0 80rpx;
   height: auto;
+  min-height: 100vh;
 }
 
 /* 下拉刷新提示样式 */
@@ -101,6 +102,12 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+}
+
+.temperature-item-wrapper_left .item_image {
+  height: 94rpx;
+  width: 94rpx;
+  margin-left: 20rpx;
 }
 
 .temperature-item-wrapper_left {
