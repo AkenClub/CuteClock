@@ -39,7 +39,7 @@
 - **点灯科技 App**：官方 App 远程控制
 - **小爱同学**：语音控制灯光和电脑
 - **HTTP API**：RESTful 接口控制
-- **微信小程序**：便捷的移动端控制（即将开源）
+- **微信小程序**：便捷的移动端控制
 - **网页端**：桌面浏览器控制面板（开发中）
 - **物理按键**：硬件按键直接控制（可扩展）
 
@@ -81,7 +81,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-username/CuteClock.git
+git clone https://github.com/AkenClub/CuteClock.git
 
 # 2. 复制配置文件
 cd CuteClock/firmware
@@ -102,7 +102,7 @@ CuteClock/
 │   ├── UserConfig.example.h   # 配置文件模板
 │   └── ...                    # 其他功能模块
 ├── clients/                    # 客户端应用
-│   ├── wechat-miniprogram/    # 微信小程序（即将开源）
+│   ├── wechat-miniprogram/    # 微信小程序
 │   └── web/                   # 网页端控制面板（开发中）
 ├── docs/                       # 文档目录
 │   ├── images/                # 图片资源
@@ -128,9 +128,10 @@ CuteClock/
 
 ### 微信小程序
 
-- **状态**: 即将开源到 `clients/wechat-miniprogram/`
+- **状态**: 已开源到 `clients/wechat-miniprogram/`
 - **功能**: 移动端便捷控制，支持灯光、时钟亮度、电脑电源控制
 - **特点**: 基于微信平台，无需安装额外应用
+- **技术栈**: 微信小程序原生开发，支持实时设备状态监控
 
 ### 网页端控制面板
 
