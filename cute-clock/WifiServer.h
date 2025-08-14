@@ -5,9 +5,11 @@
 #include "JsonWifiServer.h"
 #include "GlobalConfigure.h"
 #include "LightUtil.h"
+#include "PCController.h"
 #include "UserConfig.h"
 
 ESP8266WebServer _wifiServer(WIFI_SERVER_PORT); // 建立网络服务器对象，该对象用于响应HTTP请求。监听端口（80）
+PCController _pcController; // 电脑控制器实例
 
 void _sendSuccessResponse()
 {
@@ -131,13 +133,32 @@ void _setClockStatus()
     Serial.println("回送时钟状态");
 }
 
+void _setPcPower()
+{
+    Serial.println("控制电脑电源");
+    
+    // 首先验证API密钥
+    if (!_checkApiKey())
+    {
+        return; // 验证失败，已在_checkApiKey中发送错误响应
+    }
+    
+    Serial.println("触发电脑电源开关");
+    _pcController.trigger();
+    
+    _sendSuccessResponse();
+    Serial.println("电脑电源控制指令已发送");
+}
+
 void wifiServerInit()
 {
+    _pcController.init();                                   // 初始化电脑控制器
     _wifiServer.begin();                                    // 启动网站服务
     _wifiServer.on("/", _handleRoot);                       // 设置服务器根目录即'/'的函数'handleRoot'
     _wifiServer.on("/all-status", HTTP_GET, _getAllStatus); //
     _wifiServer.on("/room-light", HTTP_POST, _setRoomLightStatus);
     _wifiServer.on("/clock", HTTP_POST, _setClockStatus);
+    _wifiServer.on("/pc-power", HTTP_POST, _setPcPower);   // 电脑电源控制接口
     _wifiServer.onNotFound(_handleNotFound); // 设置处理404情况的函数'handleNotFound'
 
     Serial.println("HTTP esp8266_server started"); //  告知用户ESP8266网络服务功能已经启动
