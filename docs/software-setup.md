@@ -22,7 +22,7 @@
 {¨version¨¨2.0.0¨¨config¨{¨headerColor¨¨transparent¨¨headerStyle¨¨dark¨¨background¨{¨img¨¨assets/img/headerbg.jpg¨}}¨dashboard¨|{¨type¨¨btn¨¨ico¨¨fad fa-lightbulb-on¨¨mode¨Ê¨t0¨´灯´¨clr¨¨#389BEE¨¨t1¨¨文本2¨¨bg¨Ê¨cols¨Ë¨rows¨Ë¨key¨¨btn-light¨´x´É´y´Î¨speech¨|÷¨lstyle¨É}{ßB¨deb¨ßFÉßLÉßMÑßNÍßO¨debug¨´x´É´y´¤DßQ|÷ßRÊ}{ßB¨ran¨ßG¨时钟亮度¨ßH¨#076EEF¨¨max¨¤F¨min¨ÉßLÊßMÏßNËßO¨ran-clock-slider¨´x´Ë´y´ÎßQ|÷ßRÊ¨rt¨»}{ßB¨num¨ßG¨室内温度¨ßD¨fad fa-thermometer-three-quarters¨ßHßIßYÉßX¢1c¨uni¨´℃´ßLÊßMÍßNËßO¨num-temperature¨´x´Ë´y´ËßQ|÷ßRÊ}{ßBßCßD¨fad fa-repeat-alt¨ßFÉßG´´ßJßKßLÊßMËßNËßO¨btn-refresh¨´x´Ï´y´ËßQ|÷ßRÉßHßW}{ßB¨cha¨ßLÊ¨sty¨¨line¨ßHßW¨sty1¨ßk¨clr1¨ßI¨sty2¨ßk¨clr2¨ßIßMÑßNÌßO¨chart¨´x´É´y´Ñ¨key0¨¨chart-temperature¨ßGßc}{ßBßCßD¨fal fa-power-off¨ßFÉßG¨电脑远程开机¨ßJßKßLÉßMËßNËßO¨btn-pc¨´x´É´y´ËßHßW}÷¨actions¨|¦¨cmd¨¦ßu‡¨text¨‡¨on¨¨打开电脑¨¨off¨¨关闭电脑¨—{ßw{ßh¨tap¨}ßx´´}÷¨triggers¨|{¨source¨¨switch¨¨source_zh¨¨开关状态¨¨state¨|ßyß10÷¨state_zh¨|´打开´´关闭´÷}÷ßa|ßZ÷}
 ```
 
-![点灯科技APP](images/PixPin_2025-08-13_22-10-42.png)
+![点灯科技APP](images/dian_deng_app.png)
 
 ### 界面功能说明
 
