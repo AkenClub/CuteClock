@@ -10,8 +10,5 @@ const CONFIG = {
 
   // 可选：默认设备地址（如需固定IP，可在此指定）
   defaultDeviceAddress: "",
-
-  // HTTP API 密钥默认留空，运行时从本地存储读取
-  apiKey: "",
 };
 module.exports = { CONFIG };

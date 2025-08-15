@@ -25,7 +25,7 @@
 // 🌍 地理位置配置
 // =============================================================================
 
-// 天气服务城市代码 (请在心知天气或其他天气API查询您的城市代码)
+// 天气服务城市代码 (自行查询，搜索 "国家行政区编码")
 #define UserWeatherCityCode 440123                 // 修改为您所在城市的代码
 
 
@@ -43,7 +43,7 @@
 #define UserUdpBroadcastPort 1998                  // 远程广播端口
 
 // HTTP API 安全配置
-#define UserHttpApiKey "cute_clock_2025"           // HTTP API访问密钥，与配套小程序/Web项目对应，若修改，需要同步修改其他端对应的配置
+#define UserHttpApiKey "cute_clock_2025"           // HTTP API访问密钥, 设置为空字符串""可跳过API密钥验证
 
 // =============================================================================
 // 🏠 设备标识配置
@@ -61,7 +61,7 @@
 // =============================================================================
 
 // 时钟亮度配置
-#define UserClockBrightnessMin 0                   // 时钟最低亮度
+#define UserClockBrightnessMin 1                   // 时钟最低亮度
 #define UserClockBrightnessMax 15                  // 时钟最高亮度
 #define UserClockBrightnessDefault 2               // 时钟默认亮度
 

@@ -30,6 +30,8 @@ String JsonWifiServer::getAllStatusJson(boolean enable, int bright, float temper
   data_items_1_data["enable"] = true;
   data_items_1_data["brightness"] = bright;
   data_items_1_data["mode"] = 1;
+  data_items_1_data["brightnessMin"] = GLOBAL_CLOCK_BRIGHTNESS_LOW;
+  data_items_1_data["brightnessMax"] = GLOBAL_CLOCK_BRIGHTNESS_MAX;
 
   JsonObject data_items_2 = data_items.createNestedObject();
   data_items_2["type"] = "pc";

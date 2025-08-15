@@ -60,9 +60,13 @@
                         <text class="clock-item_title">{{ clock.mark }}</text>
                     </view>
                     <view class="clock-item-wrapper_bottom">
-                        <van-slider active-color="#8ec3fe" custom-class="slider" use-button-slot min="0" max="15" step="1" value="{{ clock.brightnessTmp }}" bind:drag="onSliderDrag" bind:change="onSliderChange" data-clockItem="{{ clock }}">
-                            <view class="slider-bright-level" slot="button">{{ clock.brightnessTmp }}</view>
-                        </van-slider>
+                        <view class="device-item-control">
+                            <view class="slider-container">
+                                <van-slider active-color="#8ec3fe" custom-class="slider" use-button-slot min="{{ clock.minBrightness || 0 }}" max="{{ clock.maxBrightness || 15 }}" step="1" value="{{ clock.brightnessTmp }}" bind:drag="onSliderDrag" bind:change="onSliderChange" data-clockItem="{{ clock }}">
+                                    <view class="slider-bright-level" slot="button">{{ clock.brightnessTmp }}</view>
+                                </van-slider>
+                            </view>
+                        </view>
                     </view>
                 </view>
             </van-grid-item>

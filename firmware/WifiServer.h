@@ -61,7 +61,10 @@ bool _checkApiKey()
 
 void _handleRoot()
 {
-    _wifiServer.send_P(200, "text/html; charset=utf-8", WEB_CONTROL_HTML);
+    String html(WEB_CONTROL_HTML);
+    html.replace("__BRIGHTNESS_MIN__", String(GLOBAL_CLOCK_BRIGHTNESS_LOW));
+    html.replace("__BRIGHT" + String("NESS_MAX__"), String(GLOBAL_CLOCK_BRIGHTNESS_MAX)); // `+ String("NESS_MAX__")` to avoid preprocessor issues
+    _wifiServer.send(200, "text/html; charset=utf-8", html);
 }
 
 void _handleNotFound()
@@ -129,7 +132,7 @@ void _setClockStatus()
         return;
     }
     int level = JsonWifiServer::resolveSetClockBrightnessOder(_wifiServer.arg("plain"));
-    if (level < 0 || level > 15)
+    if (level < GLOBAL_CLOCK_BRIGHTNESS_LOW || level > GLOBAL_CLOCK_BRIGHTNESS_MAX)
     {
         Serial.println("时钟状态解析失败或设置值非法");
         _sendFailResponse("时钟状态解析失败或设置值非法", 400);

@@ -256,6 +256,10 @@ Page({
         default:
           break;
       }
+      if (item.type === "clock" && item.data) {
+        item.minBrightness = item.data.brightnessMin;
+        item.maxBrightness = item.data.brightnessMax;
+      }
     });
     this.setData({
       devicesList: this.data.devicesList,

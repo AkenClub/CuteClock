@@ -54,7 +54,7 @@ h1{text-align:center;color:#667eea;margin-bottom:20px}
 <span id="clock-name">时钟</span>
 <span id="brightness-value">0</span>
 </div>
-<input type="range" id="brightness-range" class="range" min="0" max="15" value="0" oninput="setBrightness(this.value)">
+<input type="range" id="brightness-range" class="range" min="__BRIGHTNESS_MIN__" max="__BRIGHTNESS_MAX__" value="0" oninput="setBrightness(this.value)">
 </div>
 
 <div class="card">
