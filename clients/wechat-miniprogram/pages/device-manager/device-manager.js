@@ -54,15 +54,6 @@ Page({
    */
   onShow: function () {
     console.log("device manager 显示");
-    this.showLoading();
-
-    wx.setKeepScreenOn({
-      keepScreenOn: true,
-      fail() {
-        console.log("开启常亮失败");
-      },
-    });
-
     const { address, port } = app.globalData.remoteTcpServerInfo;
     const baseAddress = address || CONFIG.defaultDeviceAddress;
     const basePort = port || CONFIG.defaultPort;
