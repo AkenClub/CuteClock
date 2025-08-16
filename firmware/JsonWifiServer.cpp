@@ -1,5 +1,5 @@
 #include "JsonWifiServer.h"
-#include "UserConfig.h"
+#include "GlobalConfigure.h"
 
 String JsonWifiServer::getAllStatusJson(boolean enable, int bright, float temperature)
 {

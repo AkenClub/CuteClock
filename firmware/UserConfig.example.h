@@ -65,6 +65,9 @@
 #define UserClockBrightnessMax 15                  // 时钟最高亮度
 #define UserClockBrightnessDefault 2               // 时钟默认亮度
 
+// 自动亮度调整配置
+#define UserClockAutoBrightness true               // 是否启用整点自动亮度调整（true=启用，false=禁用）
+
 // 个性化显示
 #define UserLoveDisplayText "I&Y"                  // 爱心模式显示的文字，& 在代码中会转为爱心符号
 

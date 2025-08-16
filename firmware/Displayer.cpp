@@ -300,6 +300,24 @@ void Displayer::showWifi()
     display_bitmap(23, 19, const_cast<uint8_t *>(icon_wifi));
 }
 
+/**
+ * @brief 设置时钟显示亮度
+ * @param value 要设置的亮度值
+ * 
+ * 这个函数用于设置时钟的显示亮度，支持以下场景：
+ * 
+ * 1. 定时自动调整亮度调用
+ * 2. 用户通过Web界面手动调节
+ * 3. 系统初始化时设置默认亮度
+ * 
+ * 函数会：
+ * - 验证亮度值是否在有效范围内
+ * - 同时设置两个显示区域的亮度
+ * - 更新全局亮度变量
+ * - 输出调试信息到串口
+ * 
+ * 注意：此函数会同步更新全局变量，确保亮度设置的一致性
+ */
 void Displayer::setClockBrightness(int value)
 {
     if (value <= GLOBAL_CLOCK_BRIGHTNESS_MAX && value >= GLOBAL_CLOCK_BRIGHTNESS_LOW)
@@ -324,8 +342,48 @@ void Displayer::checkClockBrightnessByHour(int hour)
     checkClockBrightnessByHour();
 }
 
+/**
+ * @brief 根据当前小时自动调整时钟亮度
+ * 
+ * 定时自动调整亮度功能说明：
+ * 
+ * 根据一天中的不同时间段自动调整时钟显示亮度，提供更好的用户体验：
+ * 
+ * 🌅 白天时段 (7:00-19:00)：
+ *    - 亮度设置为 4（较亮）
+ *    - 适合白天光线充足的环境
+ * 
+ * 🌆 傍晚时段 (19:00-23:00)：
+ *    - 亮度设置为 2（中等）
+ *    - 适合傍晚光线较暗的环境
+ * 
+ * 🌙 夜间时段 (23:00-7:00)：
+ *    - 亮度设置为最低值（GLOBAL_CLOCK_BRIGHTNESS_LOW）
+ *    - 避免夜间过亮影响休息
+ * 
+ * 调用时机：
+ * - 系统启动时（NTP时间同步成功后）
+ * - 离线模式下使用DS3231时间
+ * - 可通过Web界面手动调节覆盖自动设置
+ * 
+ * 注意：手动调节的亮度会保存在全局变量中，下次自动调节时会检测并应用
+ * 
+ * 配置控制：
+ * - 可通过 UserClockAutoBrightness 配置项启用/禁用此功能
+ * - 禁用后，亮度将保持用户手动设置的值
+ */
 void Displayer::checkClockBrightnessByHour()
 {
+    // 检查是否启用自动亮度调整
+    #ifndef UserClockAutoBrightness
+        #define UserClockAutoBrightness true
+    #endif
+    
+    if (!UserClockAutoBrightness) {
+        Serial.println("自动亮度调整功能已禁用");
+        return;
+    }
+    
     int value;
     if (_hour_variable >= 7 && _hour_variable <= 19)
     {
@@ -337,7 +395,7 @@ void Displayer::checkClockBrightnessByHour()
     }
     else
     {
-        value = 0;
+        value = GLOBAL_CLOCK_BRIGHTNESS_LOW;
     }
 
     setClockBrightness(value);
