@@ -11,9 +11,15 @@
 | <img src="docs/images/miniprogram.png" width="800"/> | <img src="docs/images/web_ui.png" width="800"/> | <img src="docs/images/xiao_ai_app.png" width="800"/> | <img src="docs/images/dian_deng_app.png" width="800"/> |
 
 ## ‼️ 重要变更说明
-- 2025-09-06 点灯科技不再支持小爱同学语音控制，推荐使用巴法云集成，见 [巴法云集成](docs/bemfa-integration.md)。
+- 2025-09-06 更新：
+
+  点灯科技 [不再支持小爱同学语音控制](https://diandeng.tech/doc/xiaoai)，提示“要操作的设备出现问题”。
   
-  部分功能例如天气数据依然通过点灯科技获取，所以还是需要注册点灯科技账号。
+  推荐使用巴法云集成，见 [集成文档](docs/bemfa-integration.md)。
+
+  集成步骤：拉取项目代码，注册巴法云账号获取私钥和添加设备，修改配置文件，编译上传固件。
+  
+  此次更新只是改为使用巴法云平台接入米家，点灯科技的配置和代码都不需要改变，部分功能例如天气数据依然通过点灯科技获取。如果后续点灯科技恢复小爱同学语音控制，可以使用巴法云和点灯科技平台同时控制。
 
 ## ✨ 功能特性
 
