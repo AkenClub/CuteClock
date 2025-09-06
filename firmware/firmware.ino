@@ -3,6 +3,7 @@
 #include "DateTimeUtil.h"
 #include "Displayer.h"
 #include "DianDengHelper.h"
+#include "BemfaHelper.h"
 #include "GlobalConfigure.h"
 #include "LightUtil.h"
 #include "UdpUtil.h"
@@ -41,6 +42,7 @@ TickTwo mUdpTicker(broadcastUdp, UserUdpBroadcastInterval);
 
 Displayer mDisplayer;
 DianDengHelper mDianDengHelper;
+BemfaHelper mBemfaHelper;
 DateTimeUtil mDateTimeUtil;
 UdpUtil mUdpUtil;
 
@@ -290,11 +292,16 @@ void setup()
     return;
   }
 
-  // 连接 WIFI 成功，打印信息，开始连接点灯科技相关
+  // 连接 WIFI 成功，打印信息，开始连接点灯科技和巴法云相关
   Serial.print("Local IP:");
   Serial.println(WiFi.localIP());
 
+  // 初始化点灯科技
   mDianDengHelper.init();
+  
+  // 初始化巴法云
+  mBemfaHelper.init(UserBemfaUID, UserBemfaLightTopic, UserBemfaBrightnessTopic, UserBemfaSensorTopic, UserBemfaSwitchTopic);
+  
   mNtpTicker.start();
   mWeatherTicker.start();
 
@@ -310,8 +317,9 @@ void loop()
 {
   if (!IS_OFFLINE_MODE)
   {
-    // 非离线模式
+    // 非离线模式 - 同时运行点灯科技和巴法云
     mDianDengHelper.run();
+    mBemfaHelper.run();
     checkClockBrightnessChange();
     mNtpTicker.update();
     mWeatherTicker.update();

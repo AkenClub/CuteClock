@@ -21,6 +21,13 @@
 // 点灯科技配置 (需要在点灯科技平台注册设备获取)
 #define UserBlinkerAuthKey "your_auth_key"         // 修改为您的点灯科技设备密钥
 
+// 巴法云配置 (需要在巴法云平台注册获取)
+#define UserBemfaUID "your_bemfa_uid"              // 修改为您的巴法云用户UID
+#define UserBemfaLightTopic "roomlight002"         // 灯光控制主题名（只能包含字母数字，必须以002结尾）
+#define UserBemfaBrightnessTopic "clockbrightness002" // 时钟亮度控制主题名（只能包含字母数字，必须以002结尾）
+#define UserBemfaSensorTopic "roomsensor004"       // 传感器数据主题名（只能包含字母数字，必须以004结尾）
+#define UserBemfaSwitchTopic "pcswitch006"         // 开关控制主题名（只能包含字母数字，必须以006结尾）
+
 // =============================================================================
 // 🌍 地理位置配置
 // =============================================================================
