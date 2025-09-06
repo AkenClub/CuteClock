@@ -42,6 +42,12 @@
 #define UserBlinkerAuthKey "your_auth_key"         // 修改为您的点灯科技设备密钥
 ```
 
+#### 巴法云配置（推荐使用，见 [巴法云集成](./bemfa-integration.md)）
+
+```cpp
+#define UserBemfaUID "your_bemfa_uid"              // 修改为您的巴法云用户UID
+```
+
 ### 🌍 地理位置配置
 
 #### 城市代码
@@ -66,7 +72,6 @@
 
 // HTTP API 安全配置（留空 "" 表示禁用API密钥验证，所有敏感接口将无需验证即可访问）
 #define UserHttpApiKey "cute_clock_2025"           // HTTP API访问密钥
-
 ```
 
 **说明：**
@@ -77,7 +82,7 @@
 
 ### 🏠 设备标识配置（可选）
 
-// 配套小程序所用到的 设备基本信息
+配套小程序所用到的 设备基本信息
 
 ```cpp
 #define UserDeviceId "esp8266-bedroom-01"           // 设备唯一标识
@@ -85,8 +90,18 @@
 #define UserLightDeviceName "卧室大灯"             // 灯设备名称
 #define UserClockDeviceName "客厅时钟"             // 时钟设备名称
 ```
-
 **建议：** 根据您的实际部署位置修改这些标识，便于在多设备环境中区分。
+
+
+### 💻 巴法云配置
+
+```cpp
+#define UserBemfaLightTopic "roomlight002"         // 灯光控制主题名（只能包含字母数字，必须以002结尾）
+#define UserBemfaBrightnessTopic "clockbrightness002" // 时钟亮度控制主题名（只能包含字母数字，必须以002结尾）
+#define UserBemfaSensorTopic "roomsensor004"       // 传感器数据主题名（只能包含字母数字，必须以004结尾）
+#define UserBemfaSwitchTopic "pcswitch006"         // 开关控制主题名（只能包含字母数字，必须以006结尾）
+```
+
 
 ### 🎛️ 硬件显示配置（可选）
 

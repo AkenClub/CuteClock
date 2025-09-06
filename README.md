@@ -10,6 +10,11 @@
 | :--------------------------------------------------: | :---------------------------------------------: | :--------------------------------------------------: | :----------------------------------------------------: |
 | <img src="docs/images/miniprogram.png" width="800"/> | <img src="docs/images/web_ui.png" width="800"/> | <img src="docs/images/xiao_ai_app.png" width="800"/> | <img src="docs/images/dian_deng_app.png" width="800"/> |
 
+## ‼️ 重要变更说明
+- 2025-09-06 点灯科技不再支持小爱同学语音控制，推荐使用巴法云集成，见 [巴法云集成](docs/bemfa-integration.md)。
+  
+  部分功能例如天气数据依然通过点灯科技获取，所以还是需要注册点灯科技账号。
+
 ## ✨ 功能特性
 
 ### 🕒 时钟功能
@@ -79,6 +84,11 @@
 
 4. **💻 [软件设置](docs/software-setup.md)**
    - 配置点灯科技 APP 界面
+   - ~~设置小爱音箱语音控制~~（已不支持，见 [点灯科技官方文档](https://diandeng.tech/doc/xiaoai)，推荐使用 [巴法云集成](docs/bemfa-integration.md) 小爱控制）
+
+5. **💻 [巴法云集成](docs/bemfa-integration.md)**
+   - 配置巴法云平台
+   - 设置巴法云设备昵称
    - 设置小爱音箱语音控制
 
 ### ⚡ 快速部署
@@ -217,6 +227,7 @@ CuteClock/
 - [点灯科技官网](https://diandeng.tech/)
 - [ESP8266 Arduino Core](https://github.com/esp8266/Arduino)
 - [Arduino IDE 下载](https://www.arduino.cc/en/software)
+- [巴法云官网](https://cloud.bemfa.com/)
 
 ## 📞 支持
 
